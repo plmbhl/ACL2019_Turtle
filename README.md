@@ -1,5 +1,5 @@
 # ACL2019_Turtle
-BAKIR Hamza /n
+BAKIR Hamza 
 OLLIVIER Léandre
 MAHE Lucas
 Deniaux Simon 
