@@ -1,0 +1,33 @@
+### BACKLOG SPRINT 1 ###
+
+[2] Générer un labyrinthe sans obstacle.
+[2] Générer un héros dans le labyrinthe.
+[3] En tant que joueur, je peux me déplacer dans les cases adjacentes.
+[3] Un monstre est généré dans le labyrinthe.
+[5] En tant que joueur, si je rentre en collision avec le monstre, la partie est perdue.
+[3] Le monstre peut se déplacer aléatoirement dans le labyrinthe.
+[2] Générer une case trésor dans le labyrinthe.
+[2] En tant que joueur, je gagne la partie si j'arrive sur la case trésor.
+______________________________________________
+
+### BACKLOG SPRINT 2 ###
+
+[2] Générer des obstacles dans le labyrinthe.
+[2] Créer d'autres labyrinthes plus difficiles.
+[2] Classer les labyrinthes en fonction de leurs difficultés.
+[2] En tant que joueur, je peux choisir au début de la partie le niveau de difficulté que je souhaite.
+[3] Générer des cases passages qui permettront de passer au niveau suivant.
+[4] Générer un fantôme qui, en plus des propriétés des monstres, peut traverser les obstacles.
+[3] En tant que joueur, je possède des points de vitalité.
+[4] En tant que joueur, lorsque je rentre en collision avec les monstres/fantômes, je perds des points de vitalité.
+[3] En tant que joueur, si je ne possède plus de points de vitalité, la partie est perdue.
+[2] Dorénavant, la case trésor est générée au dernier labyrinthe.
+______________________________________________
+
+### BACKLOG SPRINT 3 ###
+
+[2] Générer une case magique soin qui permet de regénérer un point de vitalité au héros.
+[2] Générer une case piège qui fait perdre un point de vitalité au héros.
+[5] En tant que joueur, je peux attaquer les monstres/fantômes s'ils sont à portée.
+[5] Améliorer les graphiques du jeu.
+______________________________________________
