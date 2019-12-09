@@ -1,33 +1,32 @@
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.*;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import javax.swing.ImageIcon;
 import javax.swing.Timer;
 public class Labyrinthe extends JPanel implements ActionListener{
 
 	private int longueur = 25;
 	private int nombre_carre = 15;
 	private int taille_fenetre = nombre_carre * longueur;
-	private Color mazeColor;
 	private Timer timer;
 	private Color bleu = new Color(0, 0, 200);
 	Heros h = new Heros();
 	Monstre m = new Monstre();
 	
+	
+	// gauche = 1
+	// haut = 2
+	// droite = 4
+	// bas = 8
+	// rien = 16
 	private short lab[] = {
 			19, 26, 26, 26, 26, 26, 26, 18, 26, 26, 26, 26, 26, 26, 22,
 			21, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 21,
@@ -63,9 +62,9 @@ public class Labyrinthe extends JPanel implements ActionListener{
 				if ((lab[i] & 8) != 0) { 
 					g2d.drawLine(x, y+longueur-1,x+longueur-1,y+longueur-1);
 				}
-				if ((lab[i] & 16) != 0) { 
-					g2d.fillRect(x + 11, y + 11, 2, 2);
-				}
+//				if ((lab[i] & 16) != 0) { // voir si on met des points à gagner plus tard
+//					g2d.fillRect(x + 11, y + 11, 2, 2);
+//				}
 
 				i++;
 			}
@@ -86,7 +85,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 			m.image_monstre = ImageIO.read(input2);
 			g2d.drawImage(m.image_monstre, m.getX(), m.getY(), 25, 25, null);
 			
-			File input3 = new File(adressedufichier + "tresor.png");
+			File input3 = new File(adressedufichier + "tresor.png"); //plus tard creer une classe tresor
 			g2d.drawImage(ImageIO.read(input3), 14*25, 14*25, 25, 25, null);
 
 		} catch (IOException ie) {
