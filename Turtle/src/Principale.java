@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 
 public class Principale extends JFrame {
 	
-	static int level=2;
+	static int level;
 	
 	
 	private Timer timer;
@@ -25,14 +25,13 @@ public class Principale extends JFrame {
         addKeyListener(new keyPressed());
         setTitle("PacTurtle");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(400, 420);
+        setSize(400, 450);
         setLocationRelativeTo(null);
     }
 
     public static void main(String[] args) {
     	Scanner sc = new Scanner(System.in);
         System.out.println("Saisissez le niveau souhaité de 0 à 2");
-        System.out.println();
         level = sc.nextInt();
         EventQueue.invokeLater(() -> {
             Principale Turtle = new Principale();

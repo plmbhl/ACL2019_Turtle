@@ -19,6 +19,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	private int taille_fenetre = nombre_carre * longueur;
 	private Timer timer;
 	private Color bleu = new Color(0, 0, 200);
+	private Color rouge = new Color(200,0,0);
 	Heros h = new Heros();
 	Monstre m = new Monstre();
 	
@@ -37,9 +38,12 @@ public class Labyrinthe extends JPanel implements ActionListener{
 			lab=ReadFile.read("labyrinthe_vide");
 		}
 		if (level==1) {
-			lab=ReadFile.read("hardcorelele");
+			lab=ReadFile.read("lab_intial");
 		}
 		if (level==2) {
+			lab=ReadFile.read("hardcorelele");
+		}
+		if (level==3) {
 			lab=ReadFile.read("hardcorelele2");
 		}
 		g2d.setColor(bleu);
@@ -64,6 +68,20 @@ public class Labyrinthe extends JPanel implements ActionListener{
 
 				i++;
 			}
+		}
+	}
+	
+	public void afficherVie(Graphics2D g2d) {
+		g2d.setColor(rouge);
+		for (int i=0; i<h.vitalite; i++) {
+			g2d.fillRect(15*i, 15*26, 5, 5);
+		}
+		if (m.x == h.x & m.y == h.y) {
+			h.vitalite--;
+		}
+		if (h.vitalite==0) {
+			setVisible(false);
+			System.out.println("GAME OVER");
 		}
 	}
 	
@@ -112,14 +130,9 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		Graphics2D g2d = (Graphics2D) g;
 		chargerImage(g2d,h.getX(),h.getY());
 		genererLabyrinthe(g2d,Principale.level);
+		afficherVie(g2d);
 		repaint();
 		g.dispose();
-		if (m.x == h.x & m.y == h.y) { //game over provisoire
-			GameOver(g2d);
-			repaint();
-			setVisible(false);
-			System.out.println("GAME OVER");
-		}
 		if (h.x == 350 && h.y == 350) {
 			System.out.println("PARTIE GAGNEE");
 			repaint();
