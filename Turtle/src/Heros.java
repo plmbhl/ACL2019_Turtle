@@ -9,6 +9,7 @@ public class Heros extends JPanel {
 	public Image image_heros;
 	static int dx=0;
 	static int dy=0;
+	static int vitalite=3;
 		
 	public int getX() {
 		return x;
