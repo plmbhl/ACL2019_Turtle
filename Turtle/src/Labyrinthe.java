@@ -11,6 +11,7 @@ import javax.imageio.*;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.Timer;
+import java.util.Scanner;
 public class Labyrinthe extends JPanel implements ActionListener{
 
 	private int longueur = 25;
@@ -29,9 +30,18 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	// rien = 16
 
 
-	private int[] lab = ReadFile.read("hardcorelele");
+	private int[] lab;
 	
-	private void genererLabyrinthe(Graphics2D g2d) {
+	private void genererLabyrinthe(Graphics2D g2d,int level) {
+		if (level==0) {
+			lab=ReadFile.read("labyrinthe_vide");
+		}
+		if (level==1) {
+			lab=ReadFile.read("hardcorelele");
+		}
+		if (level==2) {
+			lab=ReadFile.read("hardcorelele2");
+		}
 		g2d.setColor(bleu);
 		int i = 0;
 		for (int y = 0; y < taille_fenetre; y += longueur) {
@@ -86,7 +96,6 @@ public class Labyrinthe extends JPanel implements ActionListener{
 
 			File input1 = new File(adressedufichier + "gameover.png");
 			g2d.drawImage(ImageIO.read(input1), 15*25/2, 15*25/2, 400, 420, null);
-			//System.out.println("coucou");
 
 		} catch (IOException ie) {
 			System.out.println("Erreur :"+ie.getMessage());
@@ -102,7 +111,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
         m.move();
 		Graphics2D g2d = (Graphics2D) g;
 		chargerImage(g2d,h.getX(),h.getY());
-		genererLabyrinthe(g2d);
+		genererLabyrinthe(g2d,Principale.level);
 		repaint();
 		g.dispose();
 		if (m.x == h.x & m.y == h.y) { //game over provisoire
@@ -128,7 +137,6 @@ public class Labyrinthe extends JPanel implements ActionListener{
 			//System.out.println(h.dy);
 			h.dx=0;
 			h.dy=0;
-			//System.out.println(pos);
 		}
 		else {
 			h.move();

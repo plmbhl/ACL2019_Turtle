@@ -2,10 +2,14 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
+
 import javax.swing.Timer;
 import javax.swing.JFrame;
 
 public class Principale extends JFrame {
+	
+	static int level=2;
 	
 	
 	private Timer timer;
@@ -26,7 +30,10 @@ public class Principale extends JFrame {
     }
 
     public static void main(String[] args) {
-
+    	Scanner sc = new Scanner(System.in);
+        System.out.println("Saisissez le niveau souhaité de 0 à 2");
+        System.out.println();
+        level = sc.nextInt();
         EventQueue.invokeLater(() -> {
             Principale Turtle = new Principale();
             Turtle.setVisible(true);
