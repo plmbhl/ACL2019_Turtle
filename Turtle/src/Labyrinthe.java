@@ -20,6 +20,8 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	private Timer timer;
 	private Color bleu = new Color(0, 0, 200);
 	private Color rouge = new Color(200,0,0);
+	private Color vert = new Color(0,200,0);
+	private Color rose = new Color(100,0,100);
 	Heros h = new Heros();
 	Monstre m = new Monstre();
 	
@@ -46,7 +48,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		if (level==3) {
 			lab=ReadFile.read("hardcorelele2");
 		}
-		g2d.setColor(bleu);
+		g2d.setColor(rose);
 		int i = 0;
 		for (int y = 0; y < taille_fenetre; y += longueur) {
 			for (int x = 0; x < taille_fenetre; x += longueur) {
@@ -62,7 +64,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 				if ((lab[i] & 8) != 0) { 
 					g2d.drawLine(x, y+longueur-1,x+longueur-1,y+longueur-1);
 				}
-//				if ((lab[i] & 16) != 0) { // voir si on met des points à gagner plus tard
+//				if ((lab[i] & 16) != 0) { // voir si on met des points Ã  gagner plus tard
 //					g2d.fillRect(x + 11, y + 11, 2, 2);
 //				}
 
@@ -72,7 +74,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	}
 	
 	public void afficherVie(Graphics2D g2d) {
-		g2d.setColor(rouge);
+		g2d.setColor(bleu);
 		for (int i=0; i<h.vitalite; i++) {
 			g2d.fillRect(15*i, 15*26, 5, 5);
 		}
@@ -83,6 +85,14 @@ public class Labyrinthe extends JPanel implements ActionListener{
 			setVisible(false);
 			System.out.println("GAME OVER");
 		}
+			if (h.x == 7*25 && h.y == 7*25) {
+				for (int j=0; h.vitalite<3; j++) {
+				
+					h.vitalite++;
+				}
+						
+			}
+		
 	}
 	
 	public void chargerImage(Graphics2D g2d,int dxx, int dyy) {
@@ -102,13 +112,16 @@ public class Labyrinthe extends JPanel implements ActionListener{
 			File input3 = new File(adressedufichier + "tresor.png"); //plus tard creer une classe tresor
 			g2d.drawImage(ImageIO.read(input3), 14*25, 14*25, 25, 25, null);
 
+			File input4 = new File(adressedufichier + "soin.png");
+			g2d.drawImage(ImageIO.read(input4), 7*25, 7*25, 25, 25, null);
+			
 		} catch (IOException ie) {
 			System.out.println("Erreur :"+ie.getMessage());
 		}
 		
 	}
 	
-	public void GameOver(Graphics g2d) { //non utilisé pour l'instant on se contente de fermer la fenêtre
+	public void GameOver(Graphics g2d) { //non utilisÃ© pour l'instant on se contente de fermer la fenÃªtre
 		String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
 		try {
 
@@ -137,6 +150,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 			System.out.println("PARTIE GAGNEE");
 			repaint();
 			setVisible(false);
+		
 		}
 	}
 	
