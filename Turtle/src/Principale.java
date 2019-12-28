@@ -31,7 +31,7 @@ public class Principale extends JFrame {
 
     public static void main(String[] args) {
     	Scanner sc = new Scanner(System.in);
-        System.out.println("Saisissez le niveau souhaité de 0 à 2");
+        System.out.println("Saisissez le niveau souhaité de 0 à 3");
         level = sc.nextInt();
         EventQueue.invokeLater(() -> {
             Principale Turtle = new Principale();

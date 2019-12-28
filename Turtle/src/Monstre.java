@@ -5,8 +5,10 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Monstre extends JPanel {
-	public int x=24*14;
-	public int y;
+//	public int x=25*14;
+//	public int y=0;
+	public int x=25*10;
+	public int y=25*5;
 	public Image image_monstre;
 	static int dx=0;
 	static int dy=0;
@@ -30,42 +32,35 @@ public class Monstre extends JPanel {
 		this.y = y;
 	}
 	
-	public void move() {
-		if (x>=0 & y==0) {
-			moveLeft(1);
-		}
-		if (x<1) {
-			moveDown(1);
-		}
-		if (y>=14*25 & x<=14*25) {
-			moveRight(1);
-		}
-		if (x==14*25 & y>0) {
-			moveUp(1);
-		}
+
+	void moveRight() {
+		// TODO Auto-generated method stub
+		setX(x+1);
+		dx=1;
+		dy=0;
 	}
 
 
-	private void moveRight(int d_x) {
+	 void moveLeft() {
 		// TODO Auto-generated method stub
-		setX(x+d_x);
+		setX(x-1);
+		dx=-1;
+		dy=0;
 	}
 
 
-	private void moveLeft(int d_x) {
+	void moveDown() {
 		// TODO Auto-generated method stub
-		setX(x-d_x);
+		setY(y+1);
+		dx=0;
+		dy=1;
 	}
 
 
-	private void moveDown(int d_y) {
+	void moveUp() {
 		// TODO Auto-generated method stub
-		setY(y+d_y);
-	}
-
-
-	private void moveUp(int d_y) {
-		// TODO Auto-generated method stub
-		setY(y-d_y);
+		setY(y-1);
+		dx=0;
+		dy=-1;
 	}
 }
