@@ -1,5 +1,7 @@
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -31,6 +33,50 @@ public class Monstre extends JPanel {
 	public void setY(int y) {
 		this.y = y;
 	}
+	
+	void move() {
+		Random random = new Random();
+		ArrayList<String> choix = new ArrayList();
+		if (x % 25 == 0 && y % 25 ==0) {
+			//System.out.println("kakakaka");
+			int position = x/25 + 15 * (int)(y/25);
+			if ((Labyrinthe.lab[position] & 1) ==0 && dx != 1) {
+				choix.add("Left");
+			}
+			if ((Labyrinthe.lab[position] & 2) ==0 && dy != 1) {
+				choix.add("Up");
+			}
+			if ((Labyrinthe.lab[position] & 4) ==0 && dx != -1) {
+				choix.add("Right");
+			}
+			if ((Labyrinthe.lab[position] & 8) ==0 && dy != -1) {
+				choix.add("Down");
+			}
+			if (choix.size()!=0) {
+				int nombreAleatoire = random.nextInt(choix.size());
+				String direction = choix.get(nombreAleatoire);
+				switch (direction) {
+				case "Left":
+					moveLeft();
+					break;
+				case "Right":
+					moveRight();
+					break;
+				case "Up":
+					moveUp();
+					break;
+				case "Down":
+					moveDown();
+					break;
+				}
+			}
+			else {
+				dx=-dx;
+				dy=-dy;
+			}
+		}
+	}
+	
 	
 
 	void moveRight() {

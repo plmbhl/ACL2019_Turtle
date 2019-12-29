@@ -27,6 +27,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	private Color rose = new Color(100,0,100);
 	Heros h = new Heros();
 	Monstre m = new Monstre();
+	Fantome f = new Fantome();
 
 
 	// gauche = 1
@@ -81,7 +82,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		for (int i=0; i<h.vitalite; i++) {
 			g2d.fillRect(15*i, 15*26, 5, 5);
 		}
-		if (m.x == h.x & m.y == h.y) {
+		if ((m.x == h.x & m.y == h.y) || (f.x == h.x && f.y == h.y)) {
 			h.vitalite--;
 		}
 		if (h.vitalite==0) {
@@ -90,10 +91,8 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		}
 		if (h.x == 7*25 && h.y == 7*25) {
 			for (int j=0; h.vitalite<3; j++) {
-
 				h.vitalite++;
 			}
-
 		}
 
 	}
@@ -131,6 +130,18 @@ public class Labyrinthe extends JPanel implements ActionListener{
 			System.out.println("Erreur :"+ie.getMessage());
 		}
 	}
+	
+	public void chargerImageFantome(Graphics g2d, int x, int y) {
+		String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
+		try {		
+			File input = new File(adressedufichier + "ghost.png");
+			f.image_fantome = ImageIO.read(input);
+			g2d.drawImage(f.image_fantome, x, y, 25, 25, null);
+
+		} catch (IOException ie) {
+			System.out.println("Erreur :"+ie.getMessage());
+		}
+	}
 
 	public void GameOver(Graphics g2d) { //non utilisé pour l'instant on se contente de fermer la fenêtre
 		String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
@@ -145,49 +156,17 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	}
 
 	public void deplacementMonstre(Graphics g2d) {
-		Random random = new Random();
-		ArrayList<String> choix = new ArrayList();
-		if (m.x % 25 == 0 && m.y % 25 ==0) {
-			//System.out.println("kakakaka");
-			int position = m.x/25 + 15 * (int)(m.y/25);
-			if ((lab[position] & 1) ==0 && m.dx != 1) {
-				choix.add("Left");
-			}
-			if ((lab[position] & 2) ==0 && m.dy != 1) {
-				choix.add("Up");
-			}
-			if ((lab[position] & 4) ==0 && m.dx != -1) {
-				choix.add("Right");
-			}
-			if ((lab[position] & 8) ==0 && m.dy != -1) {
-				choix.add("Down");
-			}
-			if (choix.size()!=0) {
-				int nombreAleatoire = random.nextInt(choix.size());
-				String direction = choix.get(nombreAleatoire);
-				switch (direction) {
-				case "Left":
-					m.moveLeft();
-					break;
-				case "Right":
-					m.moveRight();
-					break;
-				case "Up":
-					m.moveUp();
-					break;
-				case "Down":
-					m.moveDown();
-					break;
-				}
-			}
-			else {
-				m.dx=-m.dx;
-				m.dy=-m.dy;
-			}
-		}
+		m.move();
 		m.setX(m.getX()+(m.dx*3));
 		m.setY(m.getY()+(m.dy*3));
 		chargerImageMonstre(g2d, m.getX(), m.getY());
+	}
+	
+	public void deplacementFantome(Graphics g2d) {
+		f.move();
+		f.setX(f.getX()+(f.dx*3));
+		f.setY(f.getY()+(f.dy*3));
+		chargerImageFantome(g2d, f.getX(), f.getY());
 	}
 
 	public void paintComponent(Graphics g) {
@@ -201,6 +180,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		chargerImage(g2d,h.getX(),h.getY());
 		genererLabyrinthe(g2d,Principale.level);
 		deplacementMonstre(g2d);
+		deplacementFantome(g2d);
 		afficherVie(g2d);
 		repaint();
 		g.dispose();
