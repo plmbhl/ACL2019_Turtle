@@ -20,6 +20,23 @@ public class keyPressed implements KeyListener {
 		case KeyEvent.VK_DOWN: 
 			Heros.dy=-1;
 			break;
+		case KeyEvent.VK_NUMPAD1:
+			Principale.changement=false;
+			Principale.level=1;
+			break;
+
+		case KeyEvent.VK_NUMPAD2:
+			if (Principale.changement==false) {
+				Principale.changement=true;
+				Principale.level=2;
+				break;
+			}
+		case KeyEvent.VK_NUMPAD3:
+			if (Principale.changement==false) {
+				Principale.changement=true;
+				Principale.level=3;
+				break;
+			}
 		}
 	}
 

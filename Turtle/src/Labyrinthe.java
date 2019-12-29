@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import javax.imageio.*;
 
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.Timer;
 
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 public class Labyrinthe extends JPanel implements ActionListener{
+	
+	
 
 	private int longueur = 25;
 	private int nombre_carre = 15;
@@ -28,7 +32,6 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	Heros h = new Heros();
 	Monstre m = new Monstre();
 	Fantome f = new Fantome();
-
 
 	// gauche = 1
 	// haut = 2
@@ -170,12 +173,14 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	}
 
 	public void paintComponent(Graphics g) {
-		setBackground(new Color(0,0,0));
 		super.paintComponent(g);
-		timer = new Timer(5, (ActionListener) this);
+		trace(g);
+	}
+	
+	public void trace(Graphics g) {
+		setBackground(new Color(0,0,0));
+		timer = new Timer(30, (ActionListener) this);
 		timer.start();
-
-
 		Graphics2D g2d = (Graphics2D) g;
 		chargerImage(g2d,h.getX(),h.getY());
 		genererLabyrinthe(g2d,Principale.level);
@@ -184,6 +189,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		afficherVie(g2d);
 		repaint();
 		g.dispose();
+		System.out.println(timer);
 		if (h.x == 350 && h.y == 350) {
 			System.out.println("PARTIE GAGNEE");
 			repaint();
