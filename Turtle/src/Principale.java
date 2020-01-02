@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 public class Principale extends JFrame {
 	
-	static int level=1;
+	static int map=1;
 	static boolean changement=false;
 	static boolean on=false;
 	private Timer timer;

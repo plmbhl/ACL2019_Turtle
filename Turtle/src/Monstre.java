@@ -12,8 +12,8 @@ public class Monstre extends JPanel {
 	public int x=25*10;
 	public int y=25*5;
 	public Image image_monstre;
-	static int dx=0;
-	static int dy=0;
+	public int dx=0;
+	public int dy=0;
 		
 	public int getX() {
 		return x;
@@ -108,5 +108,10 @@ public class Monstre extends JPanel {
 		setY(y-1);
 		dx=0;
 		dy=-1;
+	}
+	
+	void reset() {
+		x = 25*10;
+		y = 25*5;
 	}
 }

@@ -98,4 +98,9 @@ public class Fantome {
 		dx=0;
 		dy=-1;
 	}
+	
+	void reset() {
+		x=25*10;
+		y=25*5;
+	}
 }

@@ -22,19 +22,19 @@ public class keyPressed implements KeyListener {
 			break;
 		case KeyEvent.VK_NUMPAD1:
 			Principale.changement=false;
-			Principale.level=1;
+			Principale.map=1;
 			break;
 
 		case KeyEvent.VK_NUMPAD2:
 			if (Principale.changement==false) {
 				Principale.changement=true;
-				Principale.level=2;
+				Principale.map=2;
 				break;
 			}
 		case KeyEvent.VK_NUMPAD3:
 			if (Principale.changement==false) {
 				Principale.changement=true;
-				Principale.level=3;
+				Principale.map=3;
 				break;
 			}
 		}
