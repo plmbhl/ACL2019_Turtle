@@ -38,6 +38,9 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	Monstre m4 = new Monstre();
 	Passage p = new Passage();
 	ArrayList<Monstre> Monstres = new ArrayList();
+	Boolean chargementVie = false;
+	static Boolean tir = false;
+	Boolean piege = true;
 
 	// gauche = 1
 	// haut = 2
@@ -102,10 +105,6 @@ public class Labyrinthe extends JPanel implements ActionListener{
 				if ((lab[i] & 8) != 0) { 
 					g2d.drawLine(x, y+longueur-1,x+longueur-1,y+longueur-1);
 				}
-				//				if ((lab[i] & 16) != 0) { // voir si on met des points à gagner plus tard
-				//					g2d.fillRect(x + 11, y + 11, 2, 2);
-				//				}
-
 				i++;
 			}
 		}
@@ -119,6 +118,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		}
 		for (int i=0; i<Monstres.size(); i++) {
 			if ((Monstres.get(i).x == h.x & Monstres.get(i).y == h.y) || (f.x == h.x && f.y == h.y)) {
+				// (Principale.map==1 && h.x==0 && h.y==14*25) || (Principale.map==3 && h.x==0 && h.y==14*25) || (Principale.map==2 && h.x==14*25 && h.y==0)
 				b = true;
 			}
 		}
@@ -129,10 +129,18 @@ public class Labyrinthe extends JPanel implements ActionListener{
 			setVisible(false);
 			System.out.println("GAME OVER");
 		}
-		if (h.x == 7*25 && h.y == 7*25) {
-			for (int j=0; h.vitalite<3; j++) {
-				h.vitalite++;
+		if (h.x == 7*25 && h.y == 7*25 && chargementVie==false) {
+			if (h.vitalite==2) {
+				h.vitalite=3;
+				chargementVie=true;
 			}
+			if (h.vitalite==1 && chargementVie==false) {
+				h.vitalite=2;
+				chargementVie=true;
+			}
+			//			for (int j=0; h.vitalite<3; j++) {
+			//				h.vitalite++;
+			//			}
 		}
 
 	}
@@ -148,13 +156,32 @@ public class Labyrinthe extends JPanel implements ActionListener{
 			g2d.drawImage(h.image_heros, dxx, dyy, 25, 25,null);
 
 			File input2 = new File(adressedufichier + "soin.png");
-			g2d.drawImage(ImageIO.read(input2), 7*25, 7*25, 25, 25, null);
+			if (chargementVie==false) {
+				g2d.drawImage(ImageIO.read(input2), 7*25, 7*25, 25, 25, null);
+			}
+			if (piege==true) {
+			File input3 = new File(adressedufichier + "soin.png");
+			switch (Principale.map) {
+			case 1 :
+				g2d.drawImage(ImageIO.read(input3), 0, 14*25, 25, 25, null);
+				break;
+			case 2:
+				g2d.drawImage(ImageIO.read(input3), 14*25, 0, 25, 25, null);
+				break;
+			case 3:
+				g2d.drawImage(ImageIO.read(input3), 0, 14*25, 25, 25, null);
+				break;
+			}
+			if (chargementVie==false) {
+				g2d.drawImage(ImageIO.read(input2), 7*25, 7*25, 25, 25, null);
+			}}
 
 		} catch (IOException ie) {
 			System.out.println("Erreur :"+ie.getMessage());
 		}
 
 	}
+
 
 	public void chargerImageTresor(Graphics g2d) {
 		if (Principale.map==3) {
@@ -169,7 +196,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 			}
 		}
 	}
-	
+
 	public void chargerImagePassage(Graphics g2d) {
 		if (Principale.map==1 || Principale.map==2) {
 			String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
@@ -229,7 +256,9 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	public void deplacementMonstres(Graphics g2d) {
 		remplirListeMonstres(3); // A CHANGER LE JOUEUR DOIT POUVOIR CHOISIR LE NIVEAU QUIL VEUT
 		for (int i=0; i<Monstres.size(); i++) {
-			deplacementMonstre(g2d,Monstres.get(i));
+			if (Monstres.get(i).enVie == true) {
+				deplacementMonstre(g2d,Monstres.get(i));
+			}
 		}
 	}
 
@@ -237,9 +266,11 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		f.move();
 		f.setX(f.getX()+(f.dx*3));
 		f.setY(f.getY()+(f.dy*3));
-		chargerImageFantome(g2d, f.getX(), f.getY());
+		if (f.enVie == true) {
+			chargerImageFantome(g2d, f.getX(), f.getY());
+		}
 	}
-	
+
 	public void passageMapSuivante(Graphics g2d) {
 		if (Principale.map!=3) {
 			if (h.x == p.x && h.y == p.y ) {
@@ -249,10 +280,56 @@ public class Labyrinthe extends JPanel implements ActionListener{
 				}
 				f.reset();
 				Principale.map++;
+				piege=true;
 			}
 		}
 	}
-	
+
+	public void tirMonstre(Monstre m) {
+		m.enVie=false;
+	}
+
+	public void tirFantome(Fantome f) {
+		f.enVie=false;
+		System.out.println("coucou");
+	}
+
+	public void perteViePiege(Graphics g2d) {
+		if (piege==true) {
+			if ((Principale.map==1 && h.x==0 && h.y==14*25) || (Principale.map==3 && h.x==0 && h.y==14*25) || (Principale.map==2 && h.x==14*25 && h.y==0)) {
+				h.vitalite--;
+				piege=false;
+			}
+		}
+	}
+
+	public void tueMonstre(Graphics g2d) {
+		if (tir==true) {
+			for (int i=0; i<Monstres.size(); i++) {
+				if ((Math.abs(h.y-Monstres.get(i).y))<30 && (Math.abs(h.x-Monstres.get(i).x))<30) {
+					tirMonstre(Monstres.get(i));
+					tir=false;
+				}
+				else {
+					tir=false;
+				}
+			}
+		}
+	}
+
+	public void tueFantome(Graphics g2d) {
+		if (tir==true) {
+			System.out.println("coucou");
+			if ((Math.abs(h.y-f.y))<50 || (Math.abs(h.x-f.x))<50) {
+				tirFantome(f);
+				tir=false;
+			}
+			else {
+				tir=false;
+			}
+		}
+	}
+
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -269,15 +346,17 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		deplacementMonstres(g2d);
 		deplacementFantome(g2d);
 		afficherVie(g2d);
+		tueMonstre(g2d);
 		chargerImageTresor(g2d);
+		perteViePiege(g2d);
 		passageMapSuivante(g2d);
+		
 		repaint();
 		g.dispose();
 		if (h.x == 350 && h.y == 350 && Principale.map==3) {
 			System.out.println("PARTIE GAGNEE");
 			repaint();
 			setVisible(false);
-
 		}
 	}
 
@@ -297,7 +376,6 @@ public class Labyrinthe extends JPanel implements ActionListener{
 			h.dx=0;
 			h.dy=0;
 		}
-
 		repaint();
 	}
 

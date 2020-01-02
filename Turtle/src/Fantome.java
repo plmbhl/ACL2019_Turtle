@@ -9,6 +9,7 @@ public class Fantome {
 	public Image image_fantome;
 	static int dx=0;
 	static int dy=0;
+	public boolean enVie=true;
 	
 	public int getX() {
 		return x;
@@ -102,5 +103,6 @@ public class Fantome {
 	void reset() {
 		x=25*10;
 		y=25*5;
+		enVie=true;
 	}
 }

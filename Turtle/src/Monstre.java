@@ -14,6 +14,7 @@ public class Monstre extends JPanel {
 	public Image image_monstre;
 	public int dx=0;
 	public int dy=0;
+	public boolean enVie=true;
 		
 	public int getX() {
 		return x;
@@ -113,5 +114,6 @@ public class Monstre extends JPanel {
 	void reset() {
 		x = 25*10;
 		y = 25*5;
+		enVie=true;
 	}
 }

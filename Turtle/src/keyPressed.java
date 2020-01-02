@@ -37,6 +37,9 @@ public class keyPressed implements KeyListener {
 				Principale.map=3;
 				break;
 			}
+		case KeyEvent.VK_SPACE:
+			Labyrinthe.tir = true;
+			break;
 		}
 	}
 
