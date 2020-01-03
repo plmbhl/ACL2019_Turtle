@@ -24,7 +24,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	private int longueur = 25;
 	private int nombre_carre = 15;
 	private int taille_fenetre = nombre_carre * longueur;
-	private Timer timer;
+	private Timer timer = new Timer(30, (ActionListener) this);
 	private Color bleu = new Color(0, 0, 200);
 	private Color rouge = new Color(200,0,0);
 	private Color vert = new Color(0,200,0);
@@ -125,10 +125,11 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		if (b==true) {
 			h.vitalite--;
 		}
-		if (h.vitalite==0) {
-			setVisible(false);
-			System.out.println("GAME OVER");
-		}
+		//		if (h.vitalite==0) {
+		//			GameOver(g2d);
+		////			setVisible(false);
+		////			System.out.println("GAME OVER");
+		//		}
 		if (h.x == 7*25 && h.y == 7*25 && chargementVie==false) {
 			if (h.vitalite==2) {
 				h.vitalite=3;
@@ -160,21 +161,21 @@ public class Labyrinthe extends JPanel implements ActionListener{
 				g2d.drawImage(ImageIO.read(input2), 7*25, 7*25, 25, 25, null);
 			}
 			if (piege==true) {
-			File input3 = new File(adressedufichier + "soin.png");
-			switch (Principale.map) {
-			case 1 :
-				g2d.drawImage(ImageIO.read(input3), 0, 14*25, 25, 25, null);
-				break;
-			case 2:
-				g2d.drawImage(ImageIO.read(input3), 14*25, 0, 25, 25, null);
-				break;
-			case 3:
-				g2d.drawImage(ImageIO.read(input3), 0, 14*25, 25, 25, null);
-				break;
-			}
-			if (chargementVie==false) {
-				g2d.drawImage(ImageIO.read(input2), 7*25, 7*25, 25, 25, null);
-			}}
+				File input3 = new File(adressedufichier + "soin.png");
+				switch (Principale.map) {
+				case 1 :
+					g2d.drawImage(ImageIO.read(input3), 0, 14*25, 25, 25, null);
+					break;
+				case 2:
+					g2d.drawImage(ImageIO.read(input3), 14*25, 0, 25, 25, null);
+					break;
+				case 3:
+					g2d.drawImage(ImageIO.read(input3), 0, 14*25, 25, 25, null);
+					break;
+				}
+				if (chargementVie==false) {
+					g2d.drawImage(ImageIO.read(input2), 7*25, 7*25, 25, 25, null);
+				}}
 
 		} catch (IOException ie) {
 			System.out.println("Erreur :"+ie.getMessage());
@@ -234,15 +235,24 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		}
 	}
 
-	public void GameOver(Graphics g2d) { //non utilisé pour l'instant on se contente de fermer la fenêtre
-		String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
-		try {
+	public void GameOver(Graphics g2d) {
+		if (h.vitalite==0) {
 
-			File input1 = new File(adressedufichier + "gameover.png");
-			g2d.drawImage(ImageIO.read(input1), 15*25/2, 15*25/2, 400, 420, null);
+			for (int i=0; i<Monstres.size(); i++) {
+				Monstres.get(i).enVie=false;
+			}
+			f.enVie=false;//non utilisé pour l'instant on se contente de fermer la fenêtre
+			String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
+			try {
 
-		} catch (IOException ie) {
-			System.out.println("Erreur :"+ie.getMessage());
+				File input1 = new File(adressedufichier + "gameover.png");
+				g2d.drawImage(ImageIO.read(input1), 0, 0, 400, 450, null);
+
+			} catch (IOException ie) {
+				System.out.println("Erreur :"+ie.getMessage());
+			}
+			timer.stop();
+			
 		}
 	}
 
@@ -338,9 +348,10 @@ public class Labyrinthe extends JPanel implements ActionListener{
 
 	public void trace(Graphics g) {
 		setBackground(new Color(0,0,0));
-		timer = new Timer(30, (ActionListener) this);
+		//timer = new Timer(30, (ActionListener) this);
 		timer.start();
 		Graphics2D g2d = (Graphics2D) g;
+		GameOver(g2d);
 		chargerImage(g2d,h.getX(),h.getY());
 		genererLabyrinthe(g2d,Principale.map);
 		deplacementMonstres(g2d);
