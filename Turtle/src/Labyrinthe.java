@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -20,7 +21,7 @@ import java.util.Scanner;
 public class Labyrinthe extends JPanel implements ActionListener{
 
 
-
+	
 	private int longueur = 25;
 	private int nombre_carre = 15;
 	private int taille_fenetre = nombre_carre * longueur;
@@ -36,11 +37,15 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	Monstre m2 = new Monstre();
 	Monstre m3 = new Monstre();
 	Monstre m4 = new Monstre();
+	Monstre m5 = new Monstre();
+	Monstre m6 = new Monstre();
+	Monstre m7 = new Monstre();
 	Passage p = new Passage();
 	ArrayList<Monstre> Monstres = new ArrayList();
 	Boolean chargementVie = false;
 	static Boolean tir = false;
 	Boolean piege = true;
+	static Boolean choixFait = false;
 
 	// gauche = 1
 	// haut = 2
@@ -51,17 +56,23 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	private void remplirListeMonstres(int level) {
 		int nombre = 0;
 		switch (level) {
+		case 0:
+			Monstres = new ArrayList();
+			Monstres.add(m1);
 		case 1:
 			nombre = 1;
 			Monstres = new ArrayList();
 			Monstres.add(m1);
 			Monstres.add(m2);
+			Monstres.add(m3);
 			break;
 		case 2:
 			Monstres = new ArrayList();
 			Monstres.add(m1);
 			Monstres.add(m2);
 			Monstres.add(m3);
+			Monstres.add(m4);
+			Monstres.add(m5);
 			break;
 
 		case 3:
@@ -70,6 +81,9 @@ public class Labyrinthe extends JPanel implements ActionListener{
 			Monstres.add(m2);
 			Monstres.add(m3);
 			Monstres.add(m4);
+			Monstres.add(m5);
+			Monstres.add(m6);
+			Monstres.add(m7);
 			break;
 		}
 	}
@@ -109,6 +123,19 @@ public class Labyrinthe extends JPanel implements ActionListener{
 			}
 		}
 	}
+	
+	public void ChoixLevel(Graphics2D g2d) {
+		if (choixFait==false) {
+			g2d.setColor(Color.YELLOW);
+			g2d.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
+			g2d.drawString("INSERE LE NIVEAU QUE TU SOUHAITES", 0, 7*25);
+			g2d.drawString("                      ENTRE 1 ET 3", 0, 8*25);
+			for (Monstre m : Monstres) {
+				m.reset();
+			}
+			f.reset();
+		}
+	}
 
 	public void afficherVie(Graphics2D g2d) {
 		boolean b=false;
@@ -124,6 +151,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		}
 		if (b==true) {
 			h.vitalite--;
+			//System.out.println("kakakakkaka");
 		}
 		//		if (h.vitalite==0) {
 		//			GameOver(g2d);
@@ -236,12 +264,13 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	}
 
 	public void GameOver(Graphics g2d) {
-		if (h.vitalite==0) {
-
+		if (h.vitalite<=0) {
 			for (int i=0; i<Monstres.size(); i++) {
 				Monstres.get(i).enVie=false;
 			}
-			f.enVie=false;//non utilisé pour l'instant on se contente de fermer la fenêtre
+			f.enVie=false;
+
+			//non utilisé pour l'instant on se contente de fermer la fenêtre
 			String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
 			try {
 
@@ -264,7 +293,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	}
 
 	public void deplacementMonstres(Graphics g2d) {
-		remplirListeMonstres(3); // A CHANGER LE JOUEUR DOIT POUVOIR CHOISIR LE NIVEAU QUIL VEUT
+		remplirListeMonstres(Principale.level); // A CHANGER LE JOUEUR DOIT POUVOIR CHOISIR LE NIVEAU QUIL VEUT
 		for (int i=0; i<Monstres.size(); i++) {
 			if (Monstres.get(i).enVie == true) {
 				deplacementMonstre(g2d,Monstres.get(i));
@@ -351,9 +380,11 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		//timer = new Timer(30, (ActionListener) this);
 		timer.start();
 		Graphics2D g2d = (Graphics2D) g;
-		GameOver(g2d);
+		//GameOver(g2d);
+		ChoixLevel(g2d);
 		chargerImage(g2d,h.getX(),h.getY());
 		genererLabyrinthe(g2d,Principale.map);
+		GameOver(g2d);
 		deplacementMonstres(g2d);
 		deplacementFantome(g2d);
 		afficherVie(g2d);

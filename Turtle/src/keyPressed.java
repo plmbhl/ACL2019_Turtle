@@ -20,21 +20,23 @@ public class keyPressed implements KeyListener {
 		case KeyEvent.VK_DOWN: 
 			Heros.dy=-1;
 			break;
-		case KeyEvent.VK_NUMPAD1:
-			Principale.changement=false;
-			Principale.map=1;
+		case KeyEvent.VK_1:
+			if (Labyrinthe.choixFait==false) {
+				Labyrinthe.choixFait=true;
+				Principale.level=1;
+			}
 			break;
 
-		case KeyEvent.VK_NUMPAD2:
-			if (Principale.changement==false) {
-				Principale.changement=true;
-				Principale.map=2;
+		case KeyEvent.VK_2:
+			if (Labyrinthe.choixFait==false) {
+				Labyrinthe.choixFait=true;
+				Principale.level=2;
 				break;
 			}
-		case KeyEvent.VK_NUMPAD3:
-			if (Principale.changement==false) {
-				Principale.changement=true;
-				Principale.map=3;
+		case KeyEvent.VK_3:
+			if (Labyrinthe.choixFait==false) {
+				Labyrinthe.choixFait=true;
+				Principale.level=3;
 				break;
 			}
 		case KeyEvent.VK_SPACE:

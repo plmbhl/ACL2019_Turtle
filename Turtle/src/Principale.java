@@ -16,6 +16,7 @@ public class Principale extends JFrame {
 	static boolean changement=false;
 	static boolean on=false;
 	private Timer timer;
+	static int level=0;
 
     public Principale() {
         
