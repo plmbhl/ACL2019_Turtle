@@ -44,6 +44,22 @@ public class Heros extends JPanel {
 			setY(y-25);
 		}
 	}
+	
+	public void move2() {
+		int pos = x/25+15*(int)y/25;
+		int pos_ = Labyrinthe.lab[pos];
+		if (dx==-1 && dy==0 && (pos_ & 1) != 0 || dx==1 && dy==0 && (pos_ & 4) != 0 ||
+				dx==0 && dy==-1 && (pos_ & 8) != 0 || dx==0 && dy==1 && (pos_ & 2) != 0 ) {
+			//System.out.println(h.dy);
+			dx=0;
+			dy=0;
+		}
+		else {
+			move();
+			dx=0;
+			dy=0;
+		}
+	}
 
 	public void reset() {
 		x= 0;

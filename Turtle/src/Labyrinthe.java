@@ -51,7 +51,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	// haut = 2
 	// droite = 4
 	// bas = 8
-	// rien = 16
+	// rien = 0
 
 	private void remplirListeMonstres(int level) {
 		int nombre = 0;
@@ -405,19 +405,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		int pos = h.x/25+15*(int)h.y/25;
-		int pos_ = lab[pos];
-		if (h.dx==-1 && h.dy==0 && (pos_ & 1) != 0 || h.dx==1 && h.dy==0 && (pos_ & 4) != 0 ||
-				h.dx==0 && h.dy==-1 && (pos_ & 8) != 0 || h.dx==0 && h.dy==1 && (pos_ & 2) != 0 ) {
-			//System.out.println(h.dy);
-			h.dx=0;
-			h.dy=0;
-		}
-		else {
-			h.move();
-			h.dx=0;
-			h.dy=0;
-		}
+		h.move2();
 		repaint();
 	}
 

@@ -7,6 +7,10 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Monstre extends JPanel {
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 //	public int x=25*14;
 //	public int y=0;
 	public int x=25*10;
