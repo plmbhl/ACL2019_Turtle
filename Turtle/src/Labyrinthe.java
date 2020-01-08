@@ -130,19 +130,38 @@ public class Labyrinthe extends JPanel implements ActionListener{
 				i++;
 			}
 		}
-	}
-	
-	public void ChoixLevel(Graphics2D g2d) {
 		if (choixFait==false) {
 			g2d.setColor(Color.YELLOW);
 			g2d.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
-			g2d.drawString("Choisir le niveau souhaité :", 70, 7*25);
-			g2d.drawString("       PRESSER une touche entre 1 et 3", 0, 9*25);
+			try {
+				File intro = new File(adressedufichier + "pageintro.jpg");
+				g2d.drawImage(ImageIO.read(intro), 0, 0, 389, 450, null);
+			} catch (IOException ie) {
+				System.out.println("Erreur :"+ie.getMessage());
+			}
 			for (Monstre m : Monstres) {
 				m.reset();
 			}
 			f.reset();
 		}
+	}
+	
+	public void ChoixLevel(Graphics2D g2d) {
+//		if (choixFait==false) {
+//			g2d.setColor(Color.YELLOW);
+//			g2d.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
+//			String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
+//			try {
+//				File intro = new File(adressedufichier + "pageintro.jpg");
+//				g2d.drawImage(ImageIO.read(intro), 0, 0, 389, 450, null);
+//			} catch (IOException ie) {
+//				System.out.println("Erreur :"+ie.getMessage());
+//			}
+//			for (Monstre m : Monstres) {
+//				m.reset();
+//			}
+//			f.reset();
+//		}
 	}
 
 	public void afficherVie(Graphics g2d) {
@@ -298,6 +317,18 @@ public class Labyrinthe extends JPanel implements ActionListener{
 			timer.stop();
 			
 		}
+		if (h.x == 350 && h.y == 350 && Principale.map==3) {
+			String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
+			try {
+
+				File input2 = new File(adressedufichier + "partiegagnee.jpg");
+				g2d.drawImage(ImageIO.read(input2), 0, 0, 389, 450, null);
+
+			} catch (IOException ie) {
+				System.out.println("Erreur :"+ie.getMessage());
+			}
+			System.out.println("PARTIE GAGNEE");
+		}
 	}
 
 	public void deplacementMonstre(Graphics g2d, Monstre M) {
@@ -413,11 +444,6 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		
 		repaint();
 		g.dispose();
-		if (h.x == 350 && h.y == 350 && Principale.map==3) {
-			System.out.println("PARTIE GAGNEE");
-			repaint();
-			setVisible(false);
-		}
 	}
 
 	@Override
