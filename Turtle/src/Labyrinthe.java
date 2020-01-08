@@ -137,9 +137,9 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		}
 	}
 
-	public void afficherVie(Graphics2D g2d) {
+	public void afficherVie(Graphics g2d) {
 		boolean b=false;
-		g2d.setColor(bleu);
+		g2d.setColor(Color.RED);
 		for (int i=0; i<h.vitalite; i++) {
 			g2d.fillRect(15*i, 15*26, 5, 5);
 		}
@@ -189,7 +189,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 				g2d.drawImage(ImageIO.read(input2), 7*25, 7*25, 25, 25, null);
 			}
 			if (piege==true) {
-				File input3 = new File(adressedufichier + "soin.png");
+				File input3 = new File(adressedufichier + "piege.png");
 				switch (Principale.map) {
 				case 1 :
 					g2d.drawImage(ImageIO.read(input3), 0, 14*25, 25, 25, null);
