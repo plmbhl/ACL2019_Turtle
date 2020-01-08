@@ -28,7 +28,7 @@ public class Principale extends JFrame {
         addKeyListener(new keyPressed());
         setTitle("PacTurtle");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(400, 450);
+        setSize(389, 450);
         setLocationRelativeTo(null);
     }
 
