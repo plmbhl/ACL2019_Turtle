@@ -92,6 +92,13 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	static int[] lab;
 
 	private void genererLabyrinthe(Graphics2D g2d,int map) {
+		String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
+		try {
+			File turtle = new File(adressedufichier + "turtle.png");
+			g2d.drawImage(ImageIO.read(turtle), 0, 15*25, 389, 26, null);
+		} catch (IOException ie) {
+			System.out.println("Erreur :"+ie.getMessage());
+		}
 		if (map==0) {
 			lab=ReadFile.read("labyrinthe_vide");
 		}
@@ -104,7 +111,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		if (map==3) {
 			lab=ReadFile.read("hardcorelele2");
 		}
-		g2d.setColor(rose);
+		g2d.setColor(vert);
 		int i = 0;
 		for (int y = 0; y < taille_fenetre; y += longueur) {
 			for (int x = 0; x < taille_fenetre; x += longueur) {
@@ -129,8 +136,8 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		if (choixFait==false) {
 			g2d.setColor(Color.YELLOW);
 			g2d.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
-			g2d.drawString("Choisir le niveau souhaité", 70, 7*25);
-			g2d.drawString("                          entre 1 et 3", 0, 9*25);
+			g2d.drawString("Choisir le niveau souhaité :", 70, 7*25);
+			g2d.drawString("       PRESSER une touche entre 1 et 3", 0, 9*25);
 			for (Monstre m : Monstres) {
 				m.reset();
 			}
@@ -140,16 +147,15 @@ public class Labyrinthe extends JPanel implements ActionListener{
 
 	public void afficherVie(Graphics g2d) {
 		boolean b=false;
-		g2d.setColor(Color.RED);
-//		for (int i=0; i<h.vitalite; i++) {
-//			String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
-//			try {
-//				File soin = new File(adressedufichier + "vie.png");
-//				g2d.drawImage(ImageIO.read(soin), 20*i, 15*26, 25, 25, null);
-//			} catch (IOException ie) {
-//				System.out.println("Erreur :"+ie.getMessage());
-//			}
-//		}
+		for (int i=0; i<h.vitalite; i++) {
+			String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
+			try {
+				File soin = new File(adressedufichier + "soin.png");
+				g2d.drawImage(ImageIO.read(soin), 20*i, 15*25, 25, 25, null);
+			} catch (IOException ie) {
+				System.out.println("Erreur :"+ie.getMessage());
+			}
+		}
 		for (int i=0; i<Monstres.size(); i++) {
 			if ((Monstres.get(i).x == h.x & Monstres.get(i).y == h.y) || (f.x == h.x && f.y == h.y)) {
 				// (Principale.map==1 && h.x==0 && h.y==14*25) || (Principale.map==3 && h.x==0 && h.y==14*25) || (Principale.map==2 && h.x==14*25 && h.y==0)
@@ -389,7 +395,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		//timer = new Timer(30, (ActionListener) this);
 		timer.start();
 		Graphics2D g2d = (Graphics2D) g;
-		g.setColor(Color.GRAY);
+		g.setColor(Color.BLACK);
 		g.fillRect(0,0,17*25,17*25);
 		//GameOver(g2d);
 		ChoixLevel(g2d);
