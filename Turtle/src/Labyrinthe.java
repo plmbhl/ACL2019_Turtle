@@ -22,7 +22,7 @@ import java.util.Scanner;
 public class Labyrinthe extends JPanel implements ActionListener{
 
 
-	
+
 	private int longueur = 25;
 	private int nombre_carre = 15;
 	private int taille_fenetre = nombre_carre * longueur;
@@ -145,40 +145,42 @@ public class Labyrinthe extends JPanel implements ActionListener{
 			f.reset();
 		}
 	}
-	
+
 	public void ChoixLevel(Graphics2D g2d) {
-//		if (choixFait==false) {
-//			g2d.setColor(Color.YELLOW);
-//			g2d.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
-//			String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
-//			try {
-//				File intro = new File(adressedufichier + "pageintro.jpg");
-//				g2d.drawImage(ImageIO.read(intro), 0, 0, 389, 450, null);
-//			} catch (IOException ie) {
-//				System.out.println("Erreur :"+ie.getMessage());
-//			}
-//			for (Monstre m : Monstres) {
-//				m.reset();
-//			}
-//			f.reset();
-//		}
+		//		if (choixFait==false) {
+		//			g2d.setColor(Color.YELLOW);
+		//			g2d.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
+		//			String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
+		//			try {
+		//				File intro = new File(adressedufichier + "pageintro.jpg");
+		//				g2d.drawImage(ImageIO.read(intro), 0, 0, 389, 450, null);
+		//			} catch (IOException ie) {
+		//				System.out.println("Erreur :"+ie.getMessage());
+		//			}
+		//			for (Monstre m : Monstres) {
+		//				m.reset();
+		//			}
+		//			f.reset();
+		//		}
 	}
 
 	public void afficherVie(Graphics g2d) {
 		boolean b=false;
-		for (int i=0; i<h.vitalite; i++) {
-			String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
-			try {
-				File soin = new File(adressedufichier + "soin.png");
-				g2d.drawImage(ImageIO.read(soin), 20*i, 15*25, 25, 25, null);
-			} catch (IOException ie) {
-				System.out.println("Erreur :"+ie.getMessage());
+		if (choixFait==true){
+			for (int i=0; i<h.vitalite; i++) {
+				String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
+				try {
+					File soin = new File(adressedufichier + "soin.png");
+					g2d.drawImage(ImageIO.read(soin), 20*i, 15*25, 25, 25, null);
+				} catch (IOException ie) {
+					System.out.println("Erreur :"+ie.getMessage());
+				}
 			}
-		}
-		for (int i=0; i<Monstres.size(); i++) {
-			if ((Monstres.get(i).x == h.x & Monstres.get(i).y == h.y) || (f.x == h.x && f.y == h.y)) {
-				// (Principale.map==1 && h.x==0 && h.y==14*25) || (Principale.map==3 && h.x==0 && h.y==14*25) || (Principale.map==2 && h.x==14*25 && h.y==0)
-				b = true;
+			for (int i=0; i<Monstres.size(); i++) {
+				if ((Monstres.get(i).x == h.x & Monstres.get(i).y == h.y) || (f.x == h.x && f.y == h.y)) {
+					// (Principale.map==1 && h.x==0 && h.y==14*25) || (Principale.map==3 && h.x==0 && h.y==14*25) || (Principale.map==2 && h.x==14*25 && h.y==0)
+					b = true;
+				}
 			}
 		}
 		if (b==true) {
@@ -274,26 +276,39 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	}
 
 	public void chargerImageMonstre(Graphics g2d, int x, int y, Monstre M) {
-		String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
-		try {		
-			File input = new File(adressedufichier + "monstre.png");
-			M.image_monstre = ImageIO.read(input);
-			g2d.drawImage(M.image_monstre, x, y, 25, 25, null);
+		if (choixFait==true) {
+			String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
+			try {		
+				File input = new File(adressedufichier + "monstre.png");
+				M.image_monstre = ImageIO.read(input);
+				g2d.drawImage(M.image_monstre, x, y, 25, 25, null);
 
-		} catch (IOException ie) {
-			System.out.println("Erreur :"+ie.getMessage());
+			} catch (IOException ie) {
+				System.out.println("Erreur :"+ie.getMessage());
+			}
 		}
+		//		String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
+		//		try {		
+		//			File input = new File(adressedufichier + "monstre.png");
+		//			M.image_monstre = ImageIO.read(input);
+		//			g2d.drawImage(M.image_monstre, x, y, 25, 25, null);
+		//
+		//		} catch (IOException ie) {
+		//			System.out.println("Erreur :"+ie.getMessage());
+		//		}
 	}
 
 	public void chargerImageFantome(Graphics g2d, int x, int y) {
-		String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
-		try {		
-			File input = new File(adressedufichier + "ghost.png");
-			f.image_fantome = ImageIO.read(input);
-			g2d.drawImage(f.image_fantome, x, y, 25, 25, null);
+		if (choixFait==true) {
+			String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
+			try {		
+				File input = new File(adressedufichier + "ghost.png");
+				f.image_fantome = ImageIO.read(input);
+				g2d.drawImage(f.image_fantome, x, y, 25, 25, null);
 
-		} catch (IOException ie) {
-			System.out.println("Erreur :"+ie.getMessage());
+			} catch (IOException ie) {
+				System.out.println("Erreur :"+ie.getMessage());
+			}
 		}
 	}
 
@@ -315,8 +330,11 @@ public class Labyrinthe extends JPanel implements ActionListener{
 				System.out.println("Erreur :"+ie.getMessage());
 			}
 			timer.stop();
-			
+
 		}
+	}
+
+	public void PartieGagnee(Graphics g2d) {
 		if (h.x == 350 && h.y == 350 && Principale.map==3) {
 			String adressedufichier = System.getProperty("user.dir") + "/" + "Ressources" + "/";
 			try {
@@ -327,7 +345,6 @@ public class Labyrinthe extends JPanel implements ActionListener{
 			} catch (IOException ie) {
 				System.out.println("Erreur :"+ie.getMessage());
 			}
-			System.out.println("PARTIE GAGNEE");
 		}
 	}
 
@@ -441,7 +458,8 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		perteViePiege(g2d);
 		passageMapSuivante(g2d);
 		chargerImagePassage(g2d);
-		
+		PartieGagnee(g2d);
+
 		repaint();
 		g.dispose();
 	}
