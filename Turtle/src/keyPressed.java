@@ -39,6 +39,25 @@ public class keyPressed implements KeyListener {
 				Principale.level=3;
 				break;
 			}
+		case KeyEvent.VK_NUMPAD1:
+			if (Labyrinthe.choixFait==false) {
+				Labyrinthe.choixFait=true;
+				Principale.level=1;
+			}
+			break;
+
+		case KeyEvent.VK_NUMPAD2:
+			if (Labyrinthe.choixFait==false) {
+				Labyrinthe.choixFait=true;
+				Principale.level=2;
+				break;
+			}
+		case KeyEvent.VK_NUMPAD3:
+			if (Labyrinthe.choixFait==false) {
+				Labyrinthe.choixFait=true;
+				Principale.level=3;
+				break;
+			}
 		case KeyEvent.VK_SPACE:
 			Labyrinthe.tir = true;
 			break;
