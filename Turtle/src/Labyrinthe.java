@@ -422,7 +422,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 	public void tueFantome(Graphics g2d) {
 		if (tir==true) {
 			System.out.println("coucou");
-			if ((Math.abs(h.y-f.y))<50 || (Math.abs(h.x-f.x))<50) {
+			if ((Math.abs(h.y-f.y))<100 && (Math.abs(h.x-f.x))<100) {
 				tirFantome(f);
 				tir=false;
 			}
@@ -458,6 +458,7 @@ public class Labyrinthe extends JPanel implements ActionListener{
 		perteViePiege(g2d);
 		passageMapSuivante(g2d);
 		chargerImagePassage(g2d);
+		tueFantome(g2d);
 		PartieGagnee(g2d);
 
 		repaint();
